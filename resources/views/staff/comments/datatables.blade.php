@@ -3,6 +3,7 @@
 @section('title', 'Comments Datatables - Staff')
 
 @section('content')
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
     <h1 class="h2 gradient-text">
         <i class="bi bi-chat-dots me-2"></i>Comments Management
@@ -160,7 +161,8 @@ $(document).ready(function() {
         var action = form.attr('action');
         var method = form.attr('method');
 
-        if (confirm(form.find('button').attr('title'))) {
+        var buttonText = form.find('button').text().trim();
+        if (confirm('Are you sure you want to ' + buttonText.toLowerCase() + ' this comment?')) {
             $.ajax({
                 url: action,
                 type: method,

@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Comment Details</h3>
                     <div class="card-tools">
-                        <a href="{{ route('admin.comments.index') }}" class="btn btn-default btn-sm">
+                        <a href="{{ route('staff.comments.datatables') }}" class="btn btn-default btn-sm">
                             <i class="fas fa-arrow-left"></i> Back to List
                         </a>
                     </div>
@@ -55,27 +55,27 @@
                     <!-- Actions -->
                     <div class="d-flex justify-content-between mt-4">
                         <div>
-                            <a href="{{ route('admin.comments.edit', $comment) }}" class="btn btn-warning">
+                            <a href="{{ route('staff.comments.edit', $comment) }}" class="btn btn-warning">
                                 <i class="fas fa-edit"></i> Edit Comment
                             </a>
                         </div>
                         <div>
                             @if($comment->is_approved)
-                                <form action="{{ route('admin.comments.unapprove', $comment) }}" method="POST" class="d-inline">
+                                <form action="{{ route('staff.comments.unapprove', $comment) }}" method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit" class="btn btn-secondary">
                                         <i class="fas fa-times"></i> Unapprove
                                     </button>
                                 </form>
                             @else
-                                <form action="{{ route('admin.comments.approve', $comment) }}" method="POST" class="d-inline">
+                                <form action="{{ route('staff.comments.approve', $comment) }}" method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit" class="btn btn-success">
                                         <i class="fas fa-check"></i> Approve
                                     </button>
                                 </form>
                             @endif
-                            <form action="{{ route('admin.comments.destroy', $comment) }}" method="POST" class="d-inline">
+                            <form action="{{ route('staff.comments.destroy', $comment) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this comment?')">

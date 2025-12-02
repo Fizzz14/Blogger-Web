@@ -91,13 +91,13 @@
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class=""></i> Edit
                                     </a>
                                     <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this category?')">
-                                            <i class="bi bi-trash"></i>
+                                            <i class=""></i>Delete
                                         </button>
                                     </form>
                                 </div>

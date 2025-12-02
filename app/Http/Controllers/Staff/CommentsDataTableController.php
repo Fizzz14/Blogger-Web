@@ -9,6 +9,24 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CommentsDataTableController extends Controller
 {
+    public function approve(Comment $comment)
+    {
+        $comment->update(['is_approved' => true]);
+        return response()->json([
+            'success' => 'Comment approved successfully.',
+            'status' => 'success'
+        ]);
+    }
+
+    public function unapprove(Comment $comment)
+    {
+        $comment->update(['is_approved' => false]);
+        return response()->json([
+            'success' => 'Comment unapproved successfully.',
+            'status' => 'success'
+        ]);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -62,25 +80,25 @@ class CommentsDataTableController extends Controller
                 })
                 ->addColumn('action', function($row) {
                     $btn = '<div class="btn-group" role="group">
-                            <a href="' . route('staff.comments.show', $row->id) . '" class="btn btn-sm btn-outline-info" title="View">
-                                <i class="bi bi-eye"></i>
+                            <a href="' . route('staff.comments.show', $row->id) . '" class="btn btn-sm btn-info" title="View">
+
                             </a>
-                            <a href="' . route('staff.comments.edit', $row->id) . '" class="btn btn-sm btn-outline-primary" title="Edit">
-                                <i class="bi bi-pencil"></i>
+                            <a href="' . route('staff.comments.edit', $row->id) . '" class="btn btn-sm btn-primary" title="Edit">
+
                             </a>';
 
                     if ($row->is_approved) {
                         $btn .= '<form action="' . route('staff.comments.unapprove', $row->id) . '" method="POST" class="d-inline">
                                 ' . csrf_field() . '
-                                <button type="submit" class="btn btn-sm btn-outline-warning" title="Unapprove" onclick="return confirm(\"Are you sure you want to unapprove this comment?\")">
-                                    <i class="bi bi-x-circle"></i>
+                                <button type="submit" class="btn btn-sm btn-warning" title="Unapprove" onclick="return confirm(\"Are you sure you want to unapprove this comment?\")">
+
                                 </button>
                             </form>';
                     } else {
                         $btn .= '<form action="' . route('staff.comments.approve', $row->id) . '" method="POST" class="d-inline">
                                 ' . csrf_field() . '
-                                <button type="submit" class="btn btn-sm btn-outline-success" title="Approve" onclick="return confirm(\"Are you sure you want to approve this comment?\")">
-                                    <i class="bi bi-check-circle"></i>
+                                <button type="submit" class="btn btn-sm btn-success" title="Approve" onclick="return confirm(\"Are you sure you want to approve this comment?\")">
+
                                 </button>
                             </form>';
                     }
@@ -88,10 +106,10 @@ class CommentsDataTableController extends Controller
                     $btn .= '<form action="' . route('staff.comments.destroy', $row->id) . '" method="POST" class="d-inline">
                             ' . csrf_field() . '
                             ' . method_field('DELETE') . '
-                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete" onclick="return confirm(\"Are you sure you want to delete this comment?\")">
-                                <i class="bi bi-trash"></i>
+                            <button type="submit" class="btn btn-sm btn-danger" title="Delete" onclick="return confirm(\'Are you sure you want to delete this comment?\')">
+                                Delete
                             </button>
-                        </form>
+                        </form>;
                     </div>';
                     return $btn;
                 })
