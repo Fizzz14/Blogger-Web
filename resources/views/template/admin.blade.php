@@ -43,6 +43,17 @@
                     </a>
                 </li>
             </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Account</span>
+            </h6>
+            <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}" href="{{ route('profile.edit') }}">
+                        <i class="bi bi-person-circle me-2"></i> My Profile
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 

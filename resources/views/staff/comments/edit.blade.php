@@ -10,12 +10,13 @@
                 <div class="card-header">
                     <h3 class="card-title">Edit Comment</h3>
                     <div class="card-tools">
-                        <a href="{{ route('admin.comments.show', $comment) }}" class="btn btn-default btn-sm">
+                        <a href="{{ route('staff.comments.show', $comment) }}" class="btn btn-default btn-sm">
                             <i class="fas fa-arrow-left"></i> Back to Comment
                         </a>
                     </div>
                 </div>
-                <form action="{{ route('admin.comments.update', $comment) }}" method="POST">
+                <form action="{{ route('staff.comments.update', $comment) }}" method="POST">
+                    @method("PUT")
                     @csrf
                     <div class="card-body">
                         <div class="row">
@@ -39,7 +40,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Save Changes</button>
-                        <a href="{{ route('admin.comments.show', $comment) }}" class="btn btn-default">Cancel</a>
+                        <a href="{{ route('staff.comments.show', $comment) }}" class="btn btn-default">Cancel</a>
                     </div>
                 </form>
             </div>

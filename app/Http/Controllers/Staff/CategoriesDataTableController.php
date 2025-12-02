@@ -12,7 +12,29 @@ class CategoriesDataTableController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Category::withCount('articles')->latest();
+            $data = Category::withCount('articles');
+            
+            // Apply search filter
+            if ($request->search) {
+                $data->where(function($query) use ($request) {
+                    $query->where('name', 'like', '%' . $request->search . '%')
+                          ->orWhere('description', 'like', '%' . $request->search . '%');
+                });
+            }
+            
+            // Apply articles filter
+            if ($request->articles === 'has_articles') {
+                $data->whereHas('articles');
+            } elseif ($request->articles === 'no_articles') {
+                $data->doesntHave('articles');
+            }
+            
+            // Apply color filter
+            if ($request->color) {
+                $data->where('color', $request->color);
+            }
+            
+            $data->latest();
 
             return DataTables::eloquent($data)
                 ->addIndexColumn()
@@ -48,6 +70,7 @@ class CategoriesDataTableController extends Controller
                 ->make(true);
         }
 
-        return view('staff.categories.datatables');
+        $colors = \App\Models\Category::distinct()->pluck('color')->toArray();
+        return view('staff.categories.datatables', compact('colors'));
     }
 }

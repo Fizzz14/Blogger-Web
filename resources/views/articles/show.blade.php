@@ -101,7 +101,7 @@
         @auth
         <div class="card mb-4">
             <div class="card-body text-center">
-                <form action="{{ route('articles.like', $article) }}" method="POST">
+                <form action="{{ route('reader.article.like', $article) }}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-outline-danger btn-lg">
                         <i class="bi bi-heart-fill me-2"></i>Like this Article

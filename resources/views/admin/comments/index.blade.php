@@ -9,11 +9,19 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Manage Comments</h3>
-                    <div class="card-tools">
+                    <div class="card-tools d-flex justify-content-between w-100">
                         <div class="btn-group">
                             <a href="{{ route('admin.comments.export') }}" class="btn btn-default btn-sm">
                                 <i class="fas fa-download"></i> Export
                             </a>
+                        </div>
+                        <div class="input-group" style="width: 250px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,14 +101,24 @@
 @push('scripts')
 <script>
 $(function () {
-    $("#comments-table").DataTable({
+    var table = $("#comments-table").DataTable({
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
         "ordering": true,
         "info": true,
-        "paging": true
+        "paging": true,
+        "dom": 'lrtip', // Remove default search
+        "language": {
+            "search": "",
+            "searchPlaceholder": "Search..."
+        }
     }).buttons().container().appendTo('#comments-table_wrapper .col-md-6:eq(0)');
+    
+    // Custom search functionality
+    $('input[name="table_search"]').on('keyup', function() {
+        table.search(this.value).draw();
+    });
 });
 </script>
 @endpush

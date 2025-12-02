@@ -7,8 +7,8 @@
     <h1 class="h2">Staff Dashboard</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-            <a href="{{ route('staff.comments.index') }}" class="btn btn-sm btn-outline-secondary">
-                <i class="bi bi-chat-left-text me-1"></i> Manage Comments
+            <a href="{{ route('staff.comments.datatables') }}" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-table me-1"></i> Comments
             </a>
         </div>
     </div>
@@ -154,7 +154,7 @@
         <div class="card shadow">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Recent Articles</h6>
-                <a href="{{ route('articles.index') }}" class="btn btn-sm btn-primary">View All</a>
+                <a href="{{ route('staff.articles.datatables') }}" class="btn btn-sm btn-primary">View All</a>
             </div>
             <div class="card-body">
                 @php

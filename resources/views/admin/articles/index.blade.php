@@ -9,16 +9,52 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Manage Articles</h3>
-                    <div class="card-tools">
+                    <div class="card-tools d-flex justify-content-between w-100">
                         <div class="btn-group">
                             <a href="{{ route('admin.articles.export') }}" class="btn btn-default btn-sm">
                                 <i class="fas fa-download"></i> Export
                             </a>
                         </div>
+                        <div class="input-group" style="width: 250px;">
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search articles...">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="category-filter">Filter by Category</label>
+                                <select class="form-control" id="category-filter">
+                                    <option value="">All Categories</option>
+                                    @foreach($categories ?? [] as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="status-filter">Filter by Status</label>
+                                <select class="form-control" id="status-filter">
+                                    <option value="">All Status</option>
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button id="reset-filters" class="btn btn-secondary w-100">
+                                <i class="fas fa-sync-alt me-2"></i>Reset Filters
+                            </button>
+                        </div>
+                    </div>
                     <table id="articles-table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -98,14 +134,42 @@
 @push('scripts')
 <script>
 $(function () {
-    $("#articles-table").DataTable({
+    var table = $("#articles-table").DataTable({
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
         "ordering": true,
         "info": true,
-        "paging": true
+        "paging": true,
+        "dom": 'lrtip', // Remove default search
+        "language": {
+            "search": "",
+            "searchPlaceholder": "Search articles..."
+        }
     }).buttons().container().appendTo('#articles-table_wrapper .col-md-6:eq(0)');
+    
+    // Custom search functionality
+    $('input[name="table_search"]').on('keyup', function() {
+        table.search(this.value).draw();
+    });
+    
+    // Category filter
+    $('#category-filter').on('change', function() {
+        table.column(2).search($(this).val()).draw();
+    });
+    
+    // Status filter
+    $('#status-filter').on('change', function() {
+        table.column(4).search($(this).val()).draw();
+    });
+    
+    // Reset filters
+    $('#reset-filters').on('click', function() {
+        $('#category-filter').val('');
+        $('#status-filter').val('');
+        $('input[name="table_search"]').val('');
+        table.search('').columns().search('').draw();
+    });
 });
 </script>
 @endpush

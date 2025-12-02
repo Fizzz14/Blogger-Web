@@ -103,6 +103,16 @@ Route::middleware(['auth'])->group(function () {
             Route::get('categories/datatables', [StaffCategoriesDataTableController::class, 'index'])->name('categories.datatables');
         });
 
+        // Staff Articles
+        Route::prefix('staff')->name('staff.')->group(function() {
+            Route::get('articles/datatables', [\App\Http\Controllers\Staff\ArticlesDataTableController::class, 'index'])->name('articles.datatables');
+        });
+
+        // Staff Comments
+        Route::prefix('staff/comments')->name('staff.comments.')->group(function() {
+            Route::get('datatables', [\App\Http\Controllers\Staff\CommentsDataTableController::class, 'index'])->name('datatables');
+        });
+
         // Comments Management
         Route::prefix('admin/comments')->name('admin.comments.')->group(function() {
             Route::get('/', [CommentManagementController::class, 'index'])->name('index');
@@ -122,6 +132,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{comment}/edit', [CommentManagementController::class, 'edit'])->name('edit');
             Route::put('/{comment}', [CommentManagementController::class, 'update'])->name('update');
             Route::delete('/{comment}', [CommentManagementController::class, 'destroy'])->name('destroy');
+            Route::post('/{comment}/approve', [CommentManagementController::class, 'approve'])->name('approve');
+            Route::post('/{comment}/unapprove', [CommentManagementController::class, 'unapprove'])->name('unapprove');
             Route::get('/export', [CommentManagementController::class, 'export'])->name('export');
             Route::post('/import', [CommentManagementController::class, 'import'])->name('import');
         });

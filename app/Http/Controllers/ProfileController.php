@@ -13,7 +13,16 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('profile.edit', compact('user'));
+        $title = 'My Profile';
+        
+        // Determine which view to use based on user role
+        if ($user->isAdmin()) {
+            return view('admin.profile.edit', compact('user', 'title'));
+        } elseif ($user->isStaff()) {
+            return view('staff.profile.edit', compact('user', 'title'));
+        } else {
+            return view('profile.edit', compact('user', 'title'));
+        }
     }
 
     public function update(Request $request)

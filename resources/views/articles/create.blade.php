@@ -7,8 +7,8 @@
     <h1 class="h2 gradient-text">
         <i class="bi bi-plus-circle me-2"></i>Create New Article
     </h1>
-    <a href="{{ route('articles.index') }}" class="btn btn-secondary">
-        <i class="bi bi-arrow-left me-2"></i>Back to Articles
+    <a href="{{ route('dashboard') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
     </a>
 </div>
 
@@ -95,7 +95,7 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-save me-2"></i>Save Article
                         </button>
-                        <a href="{{ route('articles.index') }}" class="btn btn-secondary">
+                        <a href="{{ route('dashboard') }}" class="btn btn-secondary">
                             <i class="bi bi-x-circle me-2"></i>Cancel
                         </a>
                     </div>

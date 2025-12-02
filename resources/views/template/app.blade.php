@@ -184,12 +184,15 @@
                                 </span>
                             </div>
                         </li>
-                        <li>
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="{{ route('profile.edit') }}" class="nav-link p-0 me-2" title="My Profile">
+                                <img src="{{ auth()->user()->getAvatarUrl() }}" alt="Profile" class="rounded-circle"
+                                    width="36" height="36">
+                            </a>
                             <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                 @csrf
-                                <button type="submit" class="dropdown-item text-danger"
-                                    style="overflow: visible;">
-                                    <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                <button type="submit" class="btn btn-outline-secondary btn-sm" title="Logout">
+                                    <i class="bi bi-box-arrow-right"></i>
                                 </button>
                             </form>
                         </li>

@@ -51,6 +51,29 @@
         </div>
     </div>
     <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text" id="search-addon"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" id="categories-search" placeholder="Search categories...">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="articles-filter">
+                    <option value="">All Categories</option>
+                    <option value="has_articles">Has Articles</option>
+                    <option value="no_articles">No Articles</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="color-filter">
+                    <option value="">All Colors</option>
+                    @foreach($colors ?? [] as $color)
+                    <option value="{{ $color }}">{{ $color }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped table-hover" id="categories-table">
                 <thead>
@@ -76,10 +99,17 @@
 
 <script>
 $(document).ready(function() {
-    $('#categories-table').DataTable({
+    var table = $('#categories-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ route("staff.categories.datatables") }}',
+        ajax: {
+            url: '{{ route("staff.categories.datatables") }}',
+            data: function(d) {
+                d.search = $('#categories-search').val();
+                d.articles = $('#articles-filter').val();
+                d.color = $('#color-filter').val();
+            }
+        },
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
             { data: 'name', name: 'name' },
@@ -91,7 +121,23 @@ $(document).ready(function() {
         order: [[1, 'asc']],
         pageLength: 10,
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        responsive: true
+        responsive: true,
+        dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rtip'
+    });
+    
+    // Custom search
+    $('#categories-search').on('keyup', function() {
+        table.draw();
+    });
+    
+    // Articles filter
+    $('#articles-filter').on('change', function() {
+        table.draw();
+    });
+    
+    // Color filter
+    $('#color-filter').on('change', function() {
+        table.draw();
     });
 });
 </script>

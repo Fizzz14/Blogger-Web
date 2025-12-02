@@ -75,13 +75,15 @@ class CommentManagementController extends Controller
     public function approve(Comment $comment)
     {
         $comment->update(['is_approved' => true]);
-        return back()->with('success', 'Comment approved.');
+        $route = Auth::user()->isAdmin() ? 'admin.comments.index' : 'staff.comments.datatables';
+        return redirect()->route($route)->with('success', 'Comment approved.');
     }
 
     public function unapprove(Comment $comment)
     {
         $comment->update(['is_approved' => false]);
-        return back()->with('success', 'Comment unapproved.');
+        $route = Auth::user()->isAdmin() ? 'admin.comments.index' : 'staff.comments.datatables';
+        return redirect()->route($route)->with('success', 'Comment unapproved.');
     }
 
      public function export()
