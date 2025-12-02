@@ -1,0 +1,10 @@
+/* .dropdown-menu {
+    z-index: 9999 !important;
+    position: absolute !important;
+}
+
+.dropdown.show .dropdown-menu {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+} */
