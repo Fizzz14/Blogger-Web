@@ -1,28 +1,28 @@
-@extends('template.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="row">
     <!-- Sidebar -->
     <div class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                    <a class="nav-link <?php echo e(request()->routeIs('dashboard') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard')); ?>">
                         <i class="bi bi-house me-2"></i> Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('articles.*') ? 'active' : '' }}" href="{{ route('articles.index') }}">
+                    <a class="nav-link <?php echo e(request()->routeIs('articles.*') ? 'active' : ''); ?>" href="<?php echo e(route('articles.index')); ?>">
                         <i class="bi bi-journal-text me-2"></i> Articles
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
+                    <a class="nav-link <?php echo e(request()->routeIs('categories.*') ? 'active' : ''); ?>" href="<?php echo e(route('categories.index')); ?>">
                         <i class="bi bi-tags me-2"></i> Categories
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.comments.*') ? 'active' : '' }}" href="{{ route('admin.comments.index') }}">
+                    <a class="nav-link <?php echo e(request()->routeIs('admin.comments.*') ? 'active' : ''); ?>" href="<?php echo e(route('admin.comments.index')); ?>">
                         <i class="bi bi-chat-left-text me-2"></i> Comments
                     </a>
                 </li>
@@ -33,12 +33,12 @@
             </h6>
             <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                    <a class="nav-link <?php echo e(request()->routeIs('users.*') ? 'active' : ''); ?>" href="<?php echo e(route('users.index')); ?>">
                         <i class="bi bi-people me-2"></i> Users
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('users.create-staff') ? 'active' : '' }}" href="{{ route('users.create-staff') }}">
+                    <a class="nav-link <?php echo e(request()->routeIs('users.create-staff') ? 'active' : ''); ?>" href="<?php echo e(route('users.create-staff')); ?>">
                         <i class="bi bi-person-plus me-2"></i> Add Staff
                     </a>
                 </li>
@@ -49,7 +49,7 @@
             </h6>
             <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}" href="{{ route('profile.edit') }}">
+                    <a class="nav-link <?php echo e(request()->routeIs('profile.edit') ? 'active' : ''); ?>" href="<?php echo e(route('profile.edit')); ?>">
                         <i class="bi bi-person-circle me-2"></i> My Profile
                     </a>
                 </li>
@@ -59,7 +59,9 @@
 
     <!-- Main Content -->
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        @yield('admin_content')
+        <?php echo $__env->yieldContent('admin_content'); ?>
     </main>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('template.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\Projek\resources\views/template/admin.blade.php ENDPATH**/ ?>

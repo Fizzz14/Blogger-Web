@@ -1,24 +1,23 @@
 @extends('template.app')
 
-@section('title', 'Edit Category')
+@section('title', 'Create Category')
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
     <h1 class="h2 gradient-text">
-        Edit Category
+        Create Category
     </h1>
 </div>
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="card shadow-sm">
             <div class="card-body">
-                <form action="{{ route('categories.update', $category) }}" method="POST">
+                <form action="{{ route('categories.store') }}" method="POST">
                     @csrf
-                    @method('PUT')
                     <div class="mb-3">
                         <label for="name" class="form-label">Category Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $category->name) }}" required>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -26,7 +25,7 @@
 
                     <div class="mb-3">
                         <label for="color" class="form-label">Color</label>
-                        <input type="text" class="form-control @error('color') is-invalid @enderror" id="color" name="color" value="{{ old('color', $category->color) }}" required>
+                        <input type="text" class="form-control @error('color') is-invalid @enderror" id="color" name="color" value="{{ old('color', '#0d6efd') }}" required>
                         @error('color')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -35,7 +34,7 @@
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Description (Optional)</label>
-                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description', $category->description) }}</textarea>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description') }}</textarea>
                         @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -46,7 +45,7 @@
                             Back to Categories
                         </a>
                         <button type="submit" class="btn btn-primary">
-                            Update Category
+                            Create Category
                         </button>
                     </div>
                 </form>
@@ -56,17 +55,3 @@
 </div>
 @endsection
 
-@push('scripts')
-<script>
-    document.getElementById('name').addEventListener('input', function() {
-        document.getElementById('previewBadge').textContent = this.value || 'Category Name';
-        document.getElementById('articleBadge').textContent = this.value || 'Category Name';
-    });
-
-    document.getElementById('color').addEventListener('input', function() {
-        const color = this.value;
-        document.getElementById('previewBadge').style.backgroundColor = color;
-        document.getElementById('articleBadge').style.backgroundColor = color;
-    });
-</script>
-@endpush
